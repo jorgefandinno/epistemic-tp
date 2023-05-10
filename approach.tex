@@ -1,2 +1,69 @@
 \section{Approach}\label{sec:approach}
 
+Let~$\Pi$ be a positive program and~$\Delta$ a set of constraints.
+%
+We define the operators
+\begin{align}
+    \TKP{\wv} \quad&=\quad \SM[\Pi^\wv]
+    \\
+    C_{\Delta}(\wv) \quad&=\quad \{ \ I \in \wv \mid \tuple{\wv,I} \models \Delta \ \}
+    \\
+    CC_{\Delta}(\wv) \quad&=\quad \{ \ I \in \wv \mid \tuple{\wv,I} \models \Delta \ \}
+    \\
+    \\
+    \TKPn{0}{\wv} \quad&=\quad \wv
+    \\
+    \TKPn{i+1}{\wv} \quad&=\quad \TKP{\TKPn{i}{\wv}}
+\end{align}
+For epistemic interpretations~$\wv$ and~$\wv'$, we write~$\wv \sqsubseteq \wv'$ if~$\wv' \models \K\fF$ for all formulas~$\fF$ such that~$\wv \models \K\fF$.
+
+\begin{conjecture}
+    \label{conj:tp.monotone}
+    Operator~$\TKPo$ is monotone and, thus, it has a least fixpoint and there is some~$n \geq 0$ such that~$\TKPn{n}{[\emptyset]} = \TKPn{n+1}{[\emptyset]} $.
+\end{conjecture}
+
+By~$\TKPf$ we denote the least fixpoint of operator~$\TKPo$.
+
+\begin{conjecture}
+    \label{conj:tp.g94}
+    $\hat{K}(\Pi)$ is a G94-world view of~$\Pi$ for any positive program~$\Pi$.
+\end{conjecture}
+
+\begin{conjecture}
+    \label{conj:tp.founded}
+    $\hat{K}(\Pi)$ is founded for any positive program~$\Pi$.
+\end{conjecture}
+
+
+We define now a partial reduct that only evaluates the epistemic literals that are true in the current world view.
+%
+The \emph{positive reduct} of a theory~$\Gamma$ 
+with respect to an epistemic interpretation~$\wv$, written~$\Gamma^{\uparrow\wv}$, is obtained by replacing by $\top$ each maximal subformula~$\fF$ of the form~$\K \fG$ such that~$\wv \models \fF$.
+
+
+For a positive program~$\Pi$ and a set of constraints~$\Delta$, we define the operators
+\begin{align}
+    \hat{K}_{\Pi,\Delta}(\wv) \quad&=\quad \{ \ I \in \wv' \mid \wv' =  \hat{K}(\Pi^{\uparrow\wv}) \text{ and }\tuple{\wv',I} \models \Delta \ \}
+    \\
+    \hat{K}_{\Pi,\Delta}^0(\wv) \quad&=\quad \wv
+    \\
+    \hat{K}_{\Pi,\Delta}^{i+1}(\wv) \quad&=\quad \hat{K}_{\Pi,\Delta}(\hat{K}_{\Pi,\Delta}^i(\wv))
+\end{align}
+
+\begin{conjecture}
+    \label{conj:tp2.monotone}
+    Operator~$\hat{K}_\Pi$ is monotone and, thus, it has a least fixpoint and there is some~$n \geq 0$ such that~$\hat{K}_\Pi^n([\emptyset]) = \hat{K}_\Pi^{n+1}([\emptyset])$.
+\end{conjecture}
+
+By~$\tilde{K}(\Pi,\Delta)$ we denote the least fixpoint of operator~$\hat{K}_{\Pi,\Delta}$.
+
+\begin{conjecture}
+    \label{conj:tp2.g94}
+    For any positive program~$\Pi$ and set of constraints~$\Delta$, if~$\hat{K}(\Pi,\Delta)$ is non\nobreakdash-empty, then it is a G94-world view of~$\Pi \cup \Delta$.
+\end{conjecture}
+
+A \emph{basic program}~$\Omega$ is a pair~$\tuple{\Pi,\Delta}$ where~$\Pi$ is a positive program and~$\Delta$ is a set of constraints.
+%
+We say that epistemic interpretations~$\wv$ is a model of a basic program~$\Omega = \tuple{\Pi,\Delta}$, written~$\wv \models \Omega$, if~$\wv \models \Pi \cup \Delta$.
+%
+We say that an epistemic model~$\wv$ of a basic program~$\Omega = \tuple{\Pi,\Delta}$ is a \emph{constructive world view}, if~$\wv = \tilde{K}(\Pi,\Delta')$ for some~$\Delta' \subseteq \Delta$.
