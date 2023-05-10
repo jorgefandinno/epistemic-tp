@@ -1,15 +1,10 @@
 \section{Approach}\label{sec:approach}
 
-Let~$\Pi$ be a positive program and~$\Delta$ a set of constraints.
+Let~$\Pi$ be a positive program.
 %
 We define the operators
 \begin{align}
     \TKP{\wv} \quad&=\quad \SM[\Pi^\wv]
-    \\
-    C_{\Delta}(\wv) \quad&=\quad \{ \ I \in \wv \mid \tuple{\wv,I} \models \Delta \ \}
-    \\
-    CC_{\Delta}(\wv) \quad&=\quad \{ \ I \in \wv \mid \tuple{\wv,I} \models \Delta \ \}
-    \\
     \\
     \TKPn{0}{\wv} \quad&=\quad \wv
     \\
@@ -26,14 +21,40 @@ By~$\TKPf$ we denote the least fixpoint of operator~$\TKPo$.
 
 \begin{conjecture}
     \label{conj:tp.g94}
-    $\hat{K}(\Pi)$ is a G94-world view of~$\Pi$ for any positive program~$\Pi$.
+    $\TKPf$ is a G94-world view of~$\Pi$ for any positive program~$\Pi$.
 \end{conjecture}
 
 \begin{conjecture}
     \label{conj:tp.founded}
-    $\hat{K}(\Pi)$ is founded for any positive program~$\Pi$.
+    $\TKPf$ is founded for any positive program~$\Pi$.
 \end{conjecture}
 
+
+We define the reduct wrt. to an epistemic interpretation~$\wv$, written~$\Pi^{\underline{\wv}}$, as the set of programs
+\begin{gather}
+    \Pi^{\underline{\wv}} \quad = \quad \{ \ \Pi^I \mid I \in \wv \ \}
+\end{gather}
+We now extend the $\TKPo$ operator to sets of programs. Given a set of programs~$\Omega$, we define
+\begin{align}
+    \TK{\Omega}{\wv} \quad&=\quad \bigcup_{\Pi \in \Omega} \SM[\Pi^\wv]
+\end{align}
+
+\begin{conjecture}
+    \label{conj:tp.monotone}
+    Operator~$\TKo{\Omega}$ is monotone and, thus, it has a least fixpoint and there is some~$n \geq 0$ such that~$\TKn{\Omega}{n}{[\emptyset]} = \TKn{\Omega}{n+1}{[\emptyset]} $.
+\end{conjecture}
+
+By~$\TKPf$ we denote the least fixpoint of operator~$\TKPo$.
+
+\begin{conjecture}
+    \label{conj:tp.g94}
+    $\TKf{\Omega}$ is a G94-world view of~$\Pi$ for any eazy program~$\Pi$.
+\end{conjecture}
+
+\begin{conjecture}
+    \label{conj:tp.founded}
+    $\TKf{\Omega}$ is founded for any eazy program~$\Pi$.
+\end{conjecture}
 
 We define now a partial reduct that only evaluates the epistemic literals that are true in the current world view.
 %
@@ -62,8 +83,120 @@ By~$\tilde{K}(\Pi,\Delta)$ we denote the least fixpoint of operator~$\hat{K}_{\P
     For any positive program~$\Pi$ and set of constraints~$\Delta$, if~$\hat{K}(\Pi,\Delta)$ is non\nobreakdash-empty, then it is a G94-world view of~$\Pi \cup \Delta$.
 \end{conjecture}
 
-A \emph{basic program}~$\Omega$ is a pair~$\tuple{\Pi,\Delta}$ where~$\Pi$ is a positive program and~$\Delta$ is a set of constraints.
+Examples:
+\begin{align}
+    a & \leftarrow \neg \K \neg a
+\end{align}
+is translted to
+\begin{align}
+    a & \leftarrow \neg b
+    \\
+    b & \leftarrow \K c
+    \\
+    c & \leftarrow \neg a
+\end{align}
+and then to
+\begin{align}
+    a & \leftarrow \overline{b}
+    \\
+    b & \leftarrow \K c
+    \\
+    c & \leftarrow \overline{a}
+    \\
+    \{ \overline{a} \} & \leftarrow
+    \\
+    & \leftarrow a \wedge \overline{a}
+    \\
+    & \leftarrow \neg a \wedge \neg \overline{a}
+    \\
+    \{ \overline{b} \} & \leftarrow
+    \\
+    & \leftarrow b \wedge \overline{b}
+    \\
+    & \leftarrow \neg b \wedge \neg \overline{b}
+\end{align}
+Let us consider some candidates to be world views. First~$[ \{ \overline{a}, b, c \} ]$.
 %
-We say that epistemic interpretations~$\wv$ is a model of a basic program~$\Omega = \tuple{\Pi,\Delta}$, written~$\wv \models \Omega$, if~$\wv \models \Pi \cup \Delta$.
+The reduct is
+\begin{align}
+    a & \leftarrow \overline{b}
+    \\
+    b & \leftarrow \K c
+    \\
+    c & \leftarrow \overline{a}
+    \\
+    \overline{a} & \leftarrow
+    \\
+    & \leftarrow a \wedge \overline{a}
+    \\
+    & \leftarrow \neg a \wedge \neg \overline{a}
+    \\
+    & \leftarrow b \wedge \overline{b}
+    \\
+    & \leftarrow \neg b \wedge \neg \overline{b}
+\end{align}
+and this program has this as a construtive world view.
 %
-We say that an epistemic model~$\wv$ of a basic program~$\Omega = \tuple{\Pi,\Delta}$ is a \emph{constructive world view}, if~$\wv = \tilde{K}(\Pi,\Delta')$ for some~$\Delta' \subseteq \Delta$.
+Second~$[ \{ a, \overline{b} \} ]$.
+%
+The reduct is
+\begin{align}
+    a & \leftarrow \overline{b}
+    \\
+    b & \leftarrow \K c
+    \\
+    c & \leftarrow \overline{a}
+    \\
+    \overline{b} & \leftarrow
+    \\
+    & \leftarrow a \wedge \overline{a}
+    \\
+    & \leftarrow \neg a \wedge \neg \overline{a}
+    \\
+    & \leftarrow b \wedge \overline{b}
+    \\
+    & \leftarrow \neg b \wedge \neg \overline{b}
+\end{align}
+and this program has this as a construtive world view.
+%
+Finally, let us consider~$[ \{ \overline{a}, b, c \},\, \{ a, \overline{b} \} ]$.
+%
+Then, we get the set~$\Omega$ containing the above two programs.
+%
+We have
+\begin{align}
+    \TKPnn{0} \quad & =\quad   [\emptyset]
+    \\
+    \TKPnn{n} \quad & =\quad   [\{\overline{a}, c \},\, \{ a, \overline{b} \}]
+\end{align}
+with~$n \geq 1$.
+%
+Hence, not a world view.
+
+Another example.
+\begin{align}
+    a \vee b & \leftarrow 
+    \\
+    a & \leftarrow \K a
+    \\
+    c & \leftarrow \K a
+    \\
+    & \leftarrow \neg c
+\end{align}
+Let us consider some candidates to be world views. First~$[ \{ a,c \} ]$.
+%
+The reduct is the result of removing the last rule and this is its world view.
+
+Another example.
+\begin{align}
+    a \vee b & \leftarrow 
+    \\
+    a & \leftarrow \K a
+    \\
+    c & \leftarrow \K a
+    \\
+    & \leftarrow \neg c
+    \\
+    & \leftarrow \neg a
+\end{align}
+DOES NOT WORK!
